@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaushal Borse | AI Agent & Automation Specialist</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for custom colors/fonts if needed, using Inter font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            --primary-purple: #7C3AED;
+            --dark-bg: #0A0A10;
+            --dark-card: #1C1C24;
+            --accent-teal: #14B8A6;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: #E5E7EB; /* Light gray text */
+            scroll-behavior: smooth;
+        }
+        .hero-glow {
+            /* Simulating the deep purple/blue glow from the reference image */
+            background: radial-gradient(circle at center, rgba(124, 58, 237, 0.1) 0%, rgba(10, 10, 16, 1) 70%);
+        }
+        .card-bg {
+            background-color: var(--dark-card);
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+        .cta-button:hover {
+            box-shadow: 0 4px 25px rgba(124, 58, 237, 0.6);
+            transform: translateY(-2px);
+        }
+        .active-currency {
+            background-color: var(--primary-purple);
+            color: white;
+            font-weight: 700;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        .modal-content {
+            margin: 15% auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        /* Custom styling for the select dropdown to match the dark theme */
+        select {
+            /* Hide default arrow */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            /* Add custom SVG arrow (white chevron pointing down) */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23ffffff'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem; /* Ensure padding is wide enough for the custom arrow */
+        }
+    </style>
+</head>
+<body class="hero-glow min-h-screen">
+
+    <!-- Modal for Call Number -->
+    <div id="callModal" class="modal">
+        <div class="modal-content card-bg rounded-xl shadow-2xl border border-violet-500">
+            <div class="flex justify-between items-start mb-4">
+                <h3 class="text-2xl font-bold text-violet-400">Direct Contact</h3>
+                <button onclick="closeModal()" class="text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+            </div>
+            <p class="text-gray-300 mb-6">Call me directly to discuss your automation strategy.</p>
+            <div class="text-center">
+                <a href="tel:9765773828" class="text-4xl font-extrabold text-accent-teal hover:text-green-400 transition">
+                    9765773828
+                </a>
+            </div>
+            <p class="text-sm text-gray-500 mt-2 text-center">Tap the number to call.</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 w-full backdrop-blur-sm bg-dark-bg/80 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-extrabold text-white">Kaushal Borse<span class="text-violet-500">.AI</span></a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#services" class="text-gray-300 hover:text-violet-400 transition">Services</a>
+                <a href="#portfolio" class="text-gray-300 hover:text-violet-400 transition">Portfolio</a>
+                <a href="#case-studies" class="text-gray-300 hover:text-violet-400 transition">Impact</a>
+                <a href="#faq" class="text-gray-300 hover:text-violet-400 transition">FAQ</a>
+                <a href="#contact" class="text-gray-300 hover:text-violet-400 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <!-- 1. Hero Section -->
+        <section id="hero" class="text-center pt-10 pb-20 md:pt-20 md:pb-32 relative">
+            <!-- Background gradient/glow effect -->
+            <div class="absolute inset-0 z-0 opacity-20" style="background: radial-gradient(60% 50% at 50% 50%, #7C3AED 0%, rgba(0,0,0,0) 100%);"></div>
+            
+            <div class="relative z-10 flex flex-col items-center">
+                <!-- Profile Picture (Now using external URL with error fallback) -->
+                <img src="https://raw.githubusercontent.com/kaushalborse38-maker/portfolio.ai/main/468582064_2091995111255490_135509749443545621_n_inspyrenet.png" 
+                     alt="Kaushal Borse Profile" 
+                     class="w-40 h-40 rounded-full object-cover border-4 border-violet-500 shadow-2xl shadow-violet-700/50 mb-8"
+                     onerror="this.onerror=null;this.src='https://placehold.co/400x400/7C3AED/ffffff?text=K.B.';">
+                
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4">
+                    Kaushal Borse
+                </h1>
+                
+                <!-- Value Proposition -->
+                <p class="text-xl md:text-3xl font-light text-gray-300 max-w-4xl mb-12">
+                    I build <span class="text-violet-400 font-semibold">AI agents and automation</span> that reduce your business workload by <span class="text-accent-teal font-extrabold">80%</span>.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                    <!-- Updated CTA to trigger modal -->
+                    <button onclick="openModal()" class="cta-button bg-violet-600 hover:bg-violet-700 text-white font-bold py-3 px-8 rounded-xl text-lg tracking-wider">
+                        Book a Strategy Call
+                    </button>
+                    <a href="https://wa.me/9765773828?text=Hello%20Kaushal%2C%20I%20am%20interested%20in%20AI%20Automation." target="_blank" class="cta-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-xl text-lg tracking-wider">
+                        <svg class="w-5 h-5 inline mr-2 -mt-0.5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.03 2.03A10 10 0 0 0 2 12.03a10 10 0 0 0 10.03 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm4.5 13.9a1.04 1.04 0 0 1-1.48 0l-.76-.78a1.55 1.55 0 0 1-.41-1.09V9.52a1.04 1.04 0 0 0-2.07 0v2.73a3.55 3.55 0 0 0 1.03 2.5l.78.79a1.04 1.04 0 0 0 1.48 0l1.45-1.45a1.04 1.04 0 0 0 0-1.48l-.75-.76a1.04 1.04 0 0 0-1.48 0l-1.45 1.45a1.56 1.56 0 0 1-2.22 0l-1.46-1.45a1.04 1.04 0 0 0-1.48 0l-1.45 1.45a1.04 1.04 0 0 0 0 1.48l1.45 1.45a3.55 3.55 0 0 0 5.03 0l1.45-1.45a1.04 1.04 0 0 0 0-1.48l-.75-.76a1.04 1.04 0 0 0-1.48 0l-1.45 1.45z"/></svg>
+                        WhatsApp Me 9765773828
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 2. Service Packages -->
+        <section id="services" class="py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">AI Automation <span class="text-violet-400">Services</span></h2>
+            
+            <!-- Currency Toggle -->
+            <div class="flex justify-center mb-10">
+                <div class="inline-flex card-bg p-1 rounded-full border border-gray-700">
+                    <button id="currency-inr" onclick="setCurrency('inr')" class="px-5 py-2 rounded-full text-sm transition active-currency">₹ INR</button>
+                    <button id="currency-usd" onclick="setCurrency('usd')" class="px-5 py-2 rounded-full text-sm transition hover:bg-gray-700">USD $</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Service Cards (4 per row on large screens) -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Service Card 1: AI Chatbot Setup (DYNAMIC) -->
+                <div id="card-chatbot" class="card-bg p-6 rounded-2xl shadow-lg border-2 border-violet-600 transform hover:scale-[1.02] transition duration-300 relative">
+                    <div class="absolute top-0 right-0 bg-violet-600 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">DEFAULT</div>
+                    <h3 class="text-2xl font-semibold mb-3 text-violet-400">AI Chatbot</h3>
+                    
+                    <!-- Plan Selector -->
+                    <select id="select-chatbot" onchange="updateServicePlan('chatbot', this.value)" class="w-full bg-gray-700 text-white rounded-lg p-2 mb-4 appearance-none focus:ring-2 focus:ring-violet-500">
+                        <option value="starter">Starter (Recommended)</option>
+                        <option value="advance">Advance</option>
+                        <option value="pro">Pro</option>
+                    </select>
+
+                    <p id="desc-chatbot" class="text-gray-400 mb-6 text-sm min-h-[40px]">
+                        Basic chatbot for FAQ on website, trained on up to 5 knowledge documents.
+                    </p>
+                    <div class="text-4xl font-extrabold mb-4 text-white">
+                        <span id="price-chatbot" class="price-value" data-inr="4,999" data-usd="60">₹4,999</span><span class="text-xl font-normal text-gray-400">/month</span>
+                    </div>
+                    <a href="#contact" class="block w-full text-center bg-violet-600 hover:bg-violet-700 py-2 rounded-lg font-medium text-white">Get Started</a>
+                </div>
+
+                <!-- Service Card 2: Custom AI Agent (DYNAMIC) -->
+                <div id="card-custom_agent" class="card-bg p-6 rounded-2xl shadow-lg border-2 border-violet-600 transform hover:scale-[1.02] transition duration-300 relative">
+                    <div class="absolute top-0 right-0 bg-violet-600 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">DEFAULT</div>
+                    <h3 class="text-2xl font-semibold mb-3 text-accent-teal">Custom Agent</h3>
+                    
+                    <!-- Plan Selector -->
+                    <select id="select-custom_agent" onchange="updateServicePlan('custom_agent', this.value)" class="w-full bg-gray-700 text-white rounded-lg p-2 mb-4 appearance-none focus:ring-2 focus:ring-accent-teal">
+                        <option value="starter">Starter (Recommended)</option>
+                        <option value="advance">Advance</option>
+                        <option value="pro">Pro</option>
+                    </select>
+
+                    <p id="desc-custom_agent" class="text-gray-400 mb-6 text-sm min-h-[40px]">
+                        Simple, single-task automation (e.g., automated email drafting or basic data categorization).
+                    </p>
+                    <div class="text-4xl font-extrabold mb-4 text-white">
+                        <span id="price-custom_agent" class="price-value" data-inr="9,999" data-usd="120">₹9,999</span><span class="text-xl font-normal text-gray-400">/month</span>
+                    </div>
+                    <!-- FIX: Changed CTA text to "Get Started" and color to violet -->
+                    <a href="#contact" class="block w-full text-center bg-violet-600 hover:bg-violet-700 py-2 rounded-lg font-medium text-white">Get Started</a>
+                </div>
+
+                <!-- Service Card 3: WhatsApp Automation (DYNAMIC) -->
+                <div id="card-whatsapp" class="card-bg p-6 rounded-2xl shadow-lg border-2 border-violet-600 transform hover:scale-[1.02] transition duration-300 relative">
+                    <div class="absolute top-0 right-0 bg-violet-600 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">DEFAULT</div>
+                    <h3 class="text-2xl font-semibold mb-3 text-violet-400">WhatsApp Auto</h3>
+                    
+                    <!-- Plan Selector -->
+                    <select id="select-whatsapp" onchange="updateServicePlan('whatsapp', this.value)" class="w-full bg-gray-700 text-white rounded-lg p-2 mb-4 appearance-none focus:ring-2 focus:ring-violet-500">
+                        <option value="starter">Starter (Recommended)</option>
+                        <option value="advance">Advance</option>
+                    </select>
+
+                    <p id="desc-whatsapp" class="text-gray-400 mb-6 text-sm min-h-[40px]">
+                        Auto-reply system for common queries and welcome messages.
+                    </p>
+                    <div class="text-4xl font-extrabold mb-4 text-white">
+                        <span id="price-whatsapp" class="price-value" data-inr="7,999" data-usd="95">₹7,999</span><span class="text-xl font-normal text-gray-400">/month</span>
+                    </div>
+                    <a href="#contact" class="block w-full text-center bg-violet-600 hover:bg-violet-700 py-2 rounded-lg font-medium text-white">Get Started</a>
+                </div>
+                
+                <!-- Service Card 4: Booking + CRM (FIXED) -->
+                <div class="card-bg p-6 rounded-2xl shadow-lg border-2 border-violet-600 transform hover:scale-[1.02] transition duration-300 relative">
+                    <div class="absolute top-0 right-0 bg-violet-600 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">DEFAULT</div>
+                    <h3 class="text-2xl font-semibold mb-3 text-violet-400">Booking + CRM</h3>
+                    
+                    <p class="text-gray-400 mb-6 text-sm min-h-[40px]">
+                        Fully automated scheduling, reminders, and lead entry into your CRM system using AI.
+                    </p>
+                    <div class="text-4xl font-extrabold mb-4 text-white mt-12">
+                        <span class="price-value" data-inr="9,999" data-usd="120">₹9,999</span><span class="text-xl font-normal text-gray-400">/month</span>
+                    </div>
+                    <a href="#contact" class="block w-full text-center bg-violet-600 hover:bg-violet-700 py-2 rounded-lg font-medium text-white">Get Started</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Portfolio Projects -->
+        <section id="portfolio" class="py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">Recent <span class="text-accent-teal">Projects</span></h2>
+            <div class="grid md:grid-cols-2 gap-10">
+                
+                <!-- Project Card 1: Restaurant Ordering Agent -->
+                <div class="card-bg rounded-2xl overflow-hidden shadow-xl border border-gray-800">
+                    <img src="https://placehold.co/600x300/1F2937/FFFFFF?text=Restaurant+Ordering+Agent" alt="Restaurant Ordering Agent" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2 text-white">Restaurant Ordering Agent</h3>
+                        <p class="text-sm text-gray-400 mb-4">An automated system for QR-based dine-in/take-out ordering.</p>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start"><span class="text-violet-400 mr-2 font-bold">Problem:</span> Manual order taking errors, slow service during peak hours, and inconsistent data logging.</li>
+                            <li class="flex items-start"><span class="text-violet-400 mr-2 font-bold">Solution:</span> Developed an agent that takes orders via QR code, logs them directly to a Google Sheet (for kitchen/parcel tracking), and enables customer reviews.</li>
+                            <li class="flex items-start"><span class="text-violet-400 mr-2 font-bold">Result/Impact:</span> <span class="font-bold text-accent-teal">99% order accuracy</span>, 15% faster table turnover, and a rich, centralized customer review dataset.</li>
+                            <li class="flex items-start"><span class="text-violet-400 mr-2 font-bold">Tech:</span> GPT-3.5, Google Sheets API, QR Code Integration, Python.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Project Card 2: Grocery Delivery App -->
+                <div class="card-bg rounded-2xl overflow-hidden shadow-xl border border-gray-800">
+                    <img src="https://placehold.co/600x300/1F2937/FFFFFF?text=Apartment+Grocery+Delivery" alt="Apartment Grocery Delivery" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold mb-2 text-white">Apartment Grocery Delivery System</h3>
+                        <p class="text-sm text-gray-400 mb-4">A hyper-local delivery solution for building residents using automated order processing.</p>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex items-start"><span class="text-violet-400 mr-2 font-bold">Problem:</span> High friction and low user adoption of standard e-commerce apps for quick, local needs.</li>
+                            <li class="flex items-start"><span class="text-violet-400 mr-2 font-bold">Solution:</span> Created an ordering system (web app + WhatsApp integration) allowing flat owners to place free-form requests which are automatically parsed and sent to the building vendor.</li>
+                            <li class="flex items-start"><span class="text-violet-400 mr-2 font-bold">Result/Impact:</span> <span class="font-bold text-accent-teal">60% increase in monthly orders</span> within the first quarter due to ease of use (WhatsApp ordering).</li>
+                            <li class="flex items-start"><span class="text-violet-400 mr-2 font-bold">Tech:</span> Twilio/WhatsApp Business API, Webhooks, Custom Order Parsing AI.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 3. Case Studies -->
+        <section id="case-studies" class="py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">Real-World <span class="text-violet-400">Impact</span></h2>
+            <div class="space-y-12">
+
+                <!-- Case Study 1: Restaurant Automation -->
+                <div class="card-bg p-8 rounded-2xl shadow-xl border-t-4 border-violet-500">
+                    <h3 class="text-3xl font-bold mb-4 text-white">Restaurant Order & Query Automation</h3>
+                    <p class="text-gray-400 mb-6">A high-volume fast-casual restaurant needed to scale service without increasing staff costs.</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div>
+                            <p class="text-xl font-semibold text-accent-teal mb-2">Problem</p>
+                            <p class="text-gray-300">Client spending <span class="font-bold text-white price-value" data-inr="40,000" data-usd="480">₹40,000</span>/month on dedicated staff for taking phone orders and answering basic queries.</p>
+                        </div>
+                        <div>
+                            <p class="text-xl font-semibold text-accent-teal mb-2">Solution</p>
+                            <p class="text-gray-300">Implemented a custom, voice-enabled AI agent handling 100% of standard phone orders and 95% of basic customer queries.</p>
+                        </div>
+                        <div>
+                            <p class="text-xl font-semibold text-accent-teal mb-2">Result</p>
+                            <p class="text-gray-300"><span class="text-4xl font-extrabold text-violet-400">₹32,000</span> /month saved (80% of salary cost) + 20% faster order processing time.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study 2: HR Onboarding Automation -->
+                <div class="card-bg p-8 rounded-2xl shadow-xl border-t-4 border-accent-teal">
+                    <h3 class="text-3xl font-bold mb-4 text-white">HR Document & Onboarding Automation</h3>
+                    <p class="text-gray-400 mb-6">A growing software company was overwhelmed by repetitive new-hire paperwork and policy queries.</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div>
+                            <p class="text-xl font-semibold text-violet-400 mb-2">Problem</p>
+                            <p class="text-gray-300">HR staff spending an average of 10 hours per new hire on manual form completion and answering FAQ emails.</p>
+                        </div>
+                        <div>
+                            <p class="text-xl font-semibold text-violet-400 mb-2">Solution</p>
+                            <p class="text-gray-300">Deployed a secure AI agent that guides new hires through document submission and instantly answers internal policy questions.</p>
+                        </div>
+                        <div>
+                            <p class="text-xl font-semibold text-violet-400 mb-2">Result</p>
+                            <p class="text-gray-300"><span class="text-4xl font-extrabold text-accent-teal">9.5 hours</span> /new hire saved, reducing onboarding time by 95% and eliminating human error in form processing.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. FAQ Section -->
+        <section id="faq" class="py-20">
+            <h2 class="text-4xl font-bold text-center mb-12">Frequently Asked <span class="text-accent-teal">Questions</span></h2>
+            <div class="max-w-3xl mx-auto space-y-4">
+
+                <!-- FAQ Item 1 -->
+                <div class="card-bg rounded-xl shadow-md border border-gray-800">
+                    <button class="faq-toggle w-full flex justify-between items-center p-5 text-lg font-medium text-white hover:text-violet-400 transition" aria-expanded="false" data-target="faq-1">
+                        How much time does an automation project take?
+                        <svg class="w-5 h-5 transition-transform duration-300 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq-1" class="faq-content px-5 pb-5 text-gray-400 hidden">
+                        <p>For standard packages like the AI Chatbot, the setup and deployment typically take 3-5 business days once all required information (knowledge base, data sources) is provided. Custom AI Agent projects require a 1-week discovery phase, followed by 2-4 weeks for development and testing.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="card-bg rounded-xl shadow-md border border-gray-800">
+                    <button class="faq-toggle w-full flex justify-between items-center p-5 text-lg font-medium text-white hover:text-violet-400 transition" aria-expanded="false" data-target="faq-2">
+                        What is the refund policy?
+                        <svg class="w-5 h-5 transition-transform duration-300 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq-2" class="faq-content px-5 pb-5 text-gray-400 hidden">
+                        <p>We offer a 7-day satisfaction guarantee on the final delivery of standard services. If the core functionality agreed upon is not met, we offer free revisions or a full refund. Custom Agent projects are handled with milestone-based payments and detailed contracts to ensure mutual satisfaction at each stage.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="card-bg rounded-xl shadow-md border border-gray-800">
+                    <button class="faq-toggle w-full flex justify-between items-center p-5 text-lg font-medium text-white hover:text-violet-400 transition" aria-expanded="false" data-target="faq-3">
+                        What data do you collect?
+                        <svg class="w-5 h-5 transition-transform duration-300 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq-3" class="faq-content px-5 pb-5 text-gray-400 hidden">
+                        <p>During development, we only access the data necessary to train and test the agent (e.g., sample conversations, knowledge documents). All client data is treated as strictly confidential and is never shared or used for any other purpose. We comply with standard data security protocols, and agents are built using secure infrastructure (e.g., encrypted cloud services).</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="card-bg rounded-xl shadow-md border border-gray-800">
+                    <button class="faq-toggle w-full flex justify-between items-center p-5 text-lg font-medium text-white hover:text-violet-400 transition" aria-expanded="false" data-target="faq-4">
+                        Do you provide support after deployment?
+                        <svg class="w-5 h-5 transition-transform duration-300 transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div id="faq-4" class="faq-content px-5 pb-5 text-gray-400 hidden">
+                        <p>Yes, all packages include 30 days of free post-deployment support to handle minor bugs and necessary adjustments. Extended maintenance and support contracts are available for ongoing AI model monitoring, training, and feature updates.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 9. Contact Section / Footer -->
+    <footer id="contact" class="border-t border-gray-800 mt-20 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold text-white mb-4">Let's Automate Your Business.</h2>
+            <p class="text-gray-400 mb-8 max-w-2xl mx-auto">Ready to reduce your workload by 80%? Get in touch directly to discuss your specific needs.</p>
+
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-10">
+                <a href="https://wa.me/9765773828?text=Hello%20Kaushal%2C%20I%20am%20interested%20in%20AI%20Automation." target="_blank" class="cta-button bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-8 rounded-xl text-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.03 2.03A10 10 0 0 0 2 12.03a10 10 0 0 0 10.03 10 10 10 0 0 0 10-10 10 10 0 0 0-10-10zm4.5 13.9a1.04 1.04 0 0 1-1.48 0l-.76-.78a1.55 1.55 0 0 1-.41-1.09V9.52a1.04 1.04 0 0 0-2.07 0v2.73a3.55 3.55 0 0 0 1.03 2.5l.78.79a1.04 1.04 0 0 0 1.48 0l1.45-1.45a1.04 1.04 0 0 0 0-1.48l-.75-.76a1.04 1.04 0 0 0-1.48 0l-1.45 1.45a1.56 1.56 0 0 1-2.22 0l-1.46-1.45a1.04 1.04 0 0 0-1.48 0l-1.45 1.45a1.04 1.04 0 0 0 0 1.48l1.45 1.45a3.55 3.55 0 0 0 5.03 0l1.45-1.45a1.04 1.04 0 0 0 0-1.48l-.75-.76a1.04 1.04 0 0 0-1.48 0l-1.45 1.45z"/></svg>
+                    WhatsApp (9765773828)
+                </a>
+                <a href="mailto:kaushalborse38@gmail.com" class="cta-button bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-8 rounded-xl text-lg flex items-center justify-center">
+                    <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    Email (kaushalborse38@gmail.com)
+                </a>
+            </div>
+            
+            <p class="text-sm text-gray-600 mt-8">&copy; 2025 Kaushal Borse. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // --- Service Plan Data ---
+        const servicePlans = {
+            'chatbot': {
+                'starter': { name: 'Starter', priceINR: '4,999', priceUSD: 60, desc: 'Basic chatbot for FAQ on website, trained on up to 5 knowledge documents.' },
+                'advance': { name: 'Advance', priceINR: '9,999', priceUSD: 120, desc: 'Advanced pre-sales qualification, CRM integration, and 10+ knowledge documents.' },
+                'pro': { name: 'Pro', priceINR: '12,999', priceUSD: 155, desc: 'Full conversational commerce, voice/multilingual support, custom user flow logic.' }
+            },
+            'custom_agent': {
+                'starter': { name: 'Starter', priceINR: '9,999', priceUSD: 120, desc: 'Simple, single-task automation (e.g., automated email drafting or basic data categorization).' },
+                'advance': { name: 'Advance', priceINR: '14,999', priceUSD: 180, desc: 'Multi-step workflow automation, integrating 2-3 complex systems (e.g., lead scoring & auto-follow-up).' },
+                'pro': { name: 'Pro', priceINR: '19,999', priceUSD: 240, desc: 'Complex, high-volume AI system with database integration, real-time monitoring, and custom fine-tuning.' }
+            },
+            'whatsapp': {
+                'starter': { name: 'Starter', priceINR: '7,999', priceUSD: 95, desc: 'Auto-reply system for common queries and welcome messages.' },
+                'advance': { name: 'Advance', priceINR: '9,999', priceUSD: 120, desc: 'Full ordering/booking system via WhatsApp with dynamic product/service lookup.' }
+            }
+        };
+
+        let currentCurrency = 'inr';
+        const INR_TO_USD_RATE = 0.012; // Approximation
+
+        /**
+         * Updates the price and description of a service card based on the selected plan.
+         * @param {string} serviceKey - 'chatbot', 'custom_agent', or 'whatsapp'.
+         * @param {string} planKey - 'starter', 'advance', or 'pro'.
+         */
+        function updateServicePlan(serviceKey, planKey) {
+            const plan = servicePlans[serviceKey][planKey];
+            const priceElement = document.getElementById(`price-${serviceKey}`);
+            const descElement = document.getElementById(`desc-${serviceKey}`);
+
+            if (plan && priceElement && descElement) {
+                // Update description
+                descElement.textContent = plan.desc;
+
+                // Update data attributes for currency switching
+                priceElement.setAttribute('data-inr', plan.priceINR);
+                priceElement.setAttribute('data-usd', plan.priceUSD);
+                
+                // Apply current currency format
+                applyCurrencyFormat(priceElement, currentCurrency);
+            }
+        }
+
+        /**
+         * Applies the currency format (INR or USD) to a specific price element.
+         * @param {HTMLElement} el - The price span element.
+         * @param {string} currency - 'inr' or 'usd'.
+         */
+        function applyCurrencyFormat(el, currency) {
+            if (currency === 'usd') {
+                const usdValue = el.getAttribute('data-usd');
+                el.textContent = `$${usdValue}`;
+            } else {
+                const inrValue = el.getAttribute('data-inr');
+                el.textContent = `₹${inrValue}`;
+            }
+        }
+
+        /**
+         * Switches the global currency display for all price elements.
+         * @param {string} currency - 'inr' or 'usd'.
+         */
+        function setCurrency(currency) {
+            if (currentCurrency === currency) return;
+            currentCurrency = currency;
+            
+            // Update button styles
+            document.getElementById('currency-inr').classList.remove('active-currency');
+            document.getElementById('currency-usd').classList.remove('active-currency');
+            document.getElementById(`currency-${currency}`).classList.add('active-currency');
+
+            const priceElements = document.querySelectorAll('.price-value');
+            
+            priceElements.forEach(el => {
+                const inrValueString = el.getAttribute('data-inr').replace(/,/g, '');
+                const inrValue = parseFloat(inrValueString);
+                
+                if (currency === 'usd') {
+                    // Recalculate USD if necessary (though using data-usd is simpler)
+                    let usdValue = el.getAttribute('data-usd');
+                    if (!usdValue) {
+                         usdValue = Math.ceil(inrValue * INR_TO_USD_RATE);
+                    }
+                    el.textContent = `$${usdValue}`;
+                } else {
+                    el.textContent = `₹${el.getAttribute('data-inr')}`;
+                }
+            });
+        }
+
+
+        // --- Modal Logic ---
+        function openModal() {
+            document.getElementById('callModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('callModal').style.display = 'none';
+        }
+
+        // Close modal if user clicks outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('callModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+
+        // --- FAQ Accordion Logic ---
+        document.querySelectorAll('.faq-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-target');
+                const targetContent = document.getElementById(targetId);
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                const icon = button.querySelector('svg');
+
+                // Close all others and reset icons
+                document.querySelectorAll('.faq-toggle').forEach(otherButton => {
+                    const otherTargetId = otherButton.getAttribute('data-target');
+                    const otherContent = document.getElementById(otherTargetId);
+                    const otherIcon = otherButton.querySelector('svg');
+                    
+                    if (otherButton !== button && otherButton.getAttribute('aria-expanded') === 'true') {
+                         otherButton.setAttribute('aria-expanded', 'false');
+                         otherContent.classList.add('hidden');
+                         otherIcon.classList.remove('rotate-180');
+                    }
+                });
+
+                // Toggle current item
+                button.setAttribute('aria-expanded', !isExpanded);
+                targetContent.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+
+        // Initialize currency display on load (and ensure Starter plans are selected)
+        window.onload = () => {
+             setCurrency('inr'); 
+             // Ensure dropdowns are set to 'starter' and content reflects it (redundant but safe)
+             updateServicePlan('chatbot', document.getElementById('select-chatbot').value);
+             updateServicePlan('custom_agent', document.getElementById('select-custom_agent').value);
+             updateServicePlan('whatsapp', document.getElementById('select-whatsapp').value);
+        };
+    </script>
+</body>
+</html>
